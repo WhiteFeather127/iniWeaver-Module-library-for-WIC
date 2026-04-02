@@ -67,7 +67,7 @@
                         "InitialValue": "0"
                     },
                     {
-                        "Type": "EnumCombo",
+                        "Type": "MultipleChoice",
                         "ValueID": 6,
                         "Hint": [
                             "单位作战方条件",
@@ -80,7 +80,8 @@
                             "A": "友方",
                             "E": "敌方",
                             "N": "中立"
-                        }
+                        },
+                        "SameLine": true
                     },
                     {
                         "Type": "EnumCombo",
@@ -111,11 +112,28 @@
                     {
                         "ValueList": [
                             0,
-                            1,
-                            2,
+                            1
+                        ]
+                    },
+                    ",\"",
+                    {
+                        "ValueIDToString": 2
+                    },
+                    "\",",
+                    {
+                        "ValueList": [
                             3,
                             4,
-                            5,
+                            5
+                        ]
+                    },
+                    ",\"",
+                    {
+                        "ValueIDToString": 6
+                    },
+                    "\",",
+                    {
+                        "ValueList": [
                             6,
                             7,
                             8
@@ -232,7 +250,7 @@
                         "InitialValue": "31"
                     },
                     {
-                        "Type": "EnumCombo",
+                        "Type": "MultipleChoice",
                         "ValueID": 2,
                         "Hint": "单位作战方条件",
                         "InitialValue": "All",
@@ -305,8 +323,16 @@
                     {
                         "ValueList": [
                             0,
-                            1,
-                            2,
+                            1
+                        ]
+                    },
+                    ",\"",
+                    {
+                        "ValueIDToString": 2
+                    },
+                    "\",",
+                    {
+                        "ValueList": [
                             3,
                             4,
                             5
