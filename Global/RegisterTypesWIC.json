@@ -51,12 +51,14 @@
                     {
                         "Type": "InputInt",
                         "ValueID": 5,
-                        "Hint": "恢复量上限"
+                        "Hint": "恢复量上限",
+                        "InitialValue": "0"
                     },
                     {
                         "Type": "InputInt",
                         "ValueID": 6,
-                        "Hint": "恢复量下限"
+                        "Hint": "恢复量下限",
+                        "InitialValue": "0"
                     }
                 ],
                 "Format":[
