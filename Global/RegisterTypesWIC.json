@@ -1,5 +1,242 @@
 ﻿{
     "InputTypes": {
+        "MobileRefineryBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "吸收动画",
+                            "吸收矿物时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": [
+                            "矿物动画",
+                            "吸收矿物时在矿物处播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效次数",
+                            "吃掉矿物的次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "生效间隔",
+                            "每隔这么多帧吃一次矿物"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 4,
+                        "Hint": [
+                            "生效范围",
+                            "吃掉矿物的半径 , 单位 : 格子"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 5,
+                        "Hint": [
+                            "是否显示收入文本",
+                            "就像油井那样 , 只显示整数部分"
+                        ],
+                        "InitialValue": "yes"
+                    },
+                    {
+                        "Type": "MultipleChoice",
+                        "ValueID": 6,
+                        "Hint": "能看到文本的作战方",
+                        "InitialValue": "All",
+                        "Options": {
+                            "All": "不限作战方",
+                            "S": "己方",
+                            "A": "友方",
+                            "E": "敌方",
+                            "N": "中立"
+                        },
+                        "SameLine": true
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 7,
+                        "Hint": "形状模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": [
+                                "圆形",
+                                "以生效范围为半径的圆形范围"
+                            ],
+                            "1": [
+                                "正方形",
+                                "以生效范围为边长的正方形范围"
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 8,
+                        "Hint": [
+                            "吸收量",
+                            "每次最多吃下多少个格子的矿物"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 9,
+                        "Hint": [
+                            "吸收率",
+                            "吃掉的矿物转化为资金的比例 , 用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 10,
+                        "Hint": [
+                            "吸收量上限",
+                            "每个格子的最大吸收量 , 这里指的是原始值 , 实际处理时四舍五入"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9,
+                            10
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delay"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Range"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Display"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 5
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Owner"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 6
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 7
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 8
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 9
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 10
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "AmmoCheckBuffWarheads": {
             "Multiple": true,
             "Form": {

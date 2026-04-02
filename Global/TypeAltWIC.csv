@@ -61,3 +61,4 @@ AmmoBuff,String,-1,,,,AmmoBuff
 AmmoCheckBuff,String,-1,,,,AmmoCheckBuff
 AmmoCheckBuffAcceptBuffs,String,-1,,,,AmmoCheckBuffAcceptBuffs
 AmmoCheckBuffWarheads,String,-1,,,,AmmoCheckBuffWarheads
+MobileRefineryBuff,String,-1,,,,MobileRefineryBuff
