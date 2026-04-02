@@ -1,0 +1,50 @@
+﻿,链接种类,链接限制,短描述,长描述,连线颜色(RGB),
+订单上限,String,-1,订单上限,订单上限,,订单上限
+FactoryMatrix1,String,-1,工厂生产相关,,,FactoryMatrix1
+FactoryMatrix2,String,-1,产物挂buff相关,,,FactoryMatrix2
+Health,String,1,Buff 生命值,"浮点数 , 默认的 Buff 的生命值 , 仅当挂载 Buff 时输入的生命值为 0 时生效"
+Health.Max,String,1,Buff 生命值上限,"浮点数 , 调整 Buff 的生命值时 (恢复生命值时) 允许的生命值上限"
+Health.Min,String,1,Buff 生命值下限,"浮点数 , 调整 Buff 的生命值时 (恢复生命值时) 允许的生命值下限"
+Health.Damage,Bool,1,随单位受伤,"单位受到伤害时 Buff 是否也会被伤害\nBuff 使用单位的护甲 , 且在受伤阶段处理完毕后才会结算生命值"
+WICBuffAnim,String,-1,通常动画,正常情况下 Buff 挂载的动画,,WICBuffAnim
+Anim.Death,String,-1,死亡动画,单位死亡显示的动画,,WICBuffAnimO
+Anim.Removed,String,-1,移除动画,Buff 被移除时显示的动画,,WICBuffAnimO
+Anim.End,String,-1,结束动画,Buff 挂载持续时间结束时显示的动画,,WICBuffAnimO
+Anim.BuffDeath,Anim.BuffDeath,-1,归零动画,Buff 生命值清零时显示的动画,,WICBuffAnimO
+Duration,String,1,持续时间,"整数 , 默认的 Buff 的挂载持续时间 , 仅当挂载 Buff 时输入的时间为 0 时生效"
+Duration.Max,String,1,持续时间最大值,"整数 , 每次挂载 Buff 时 (叠加挂载持续时间时) 允许的挂载持续时间上限"
+Duration.Min,String,1,持续时间最小值,"整数 , 每次挂载 Buff 时 (叠加挂载持续时间时) 允许的挂载持续时间下限"
+Order,String,-1,处理顺序,"Buff 的处理顺序 , 值越小越靠前 , 值相同则顺序取决于挂载的时间 , 挂载越早越靠前",,Order
+AllowExist,String,-1,在以下情况保留 Buff,,,AllowExist
+AllowPlayer,Bool,1,允许玩家使用,是否允许玩家持有的单位挂载此 Buff
+AllowAI,String,-1,允许AI使用,"是否允许 AI 持有的单位挂载此 Buff , 中立阵营也算 AI 控制的",,AllowAI
+AllowGameMode,String,-1,允许使用模式,,,AllowGameMode
+NeedPowered,Bool,1,NeedPowered,"Buff 是否会在单位断电、被 EMP、被静默等时失效 , 不影响下方的各种动画\n被静默需要分模式 , 仅建筑的模式 1 和 2 , 以及单位的模式 1 会被读取"
+WaitingIronCurtain,Bool,1,WaitingIronCurtain,"Buff 是否会在单位处于铁幕效果下时失效 , 铁幕消失后恢复效果 , 不影响下方的各种动画"
+LockOwnerHouse,Bool,1,锁定作战方,"作战方是否固定为挂载瞬间的作战方 , yes = 维持挂载瞬间的作战方 , no = 当单位被心控时作战方也会变化"
+EnableCodeDamage,Bool,1,忽视代码杀,Buff 是否会忽视 (不处理) 拥有 IgnoreDefenses=yes 标识的伤害
+Mark.Type,String,-1,挂载类型,"具有相同类型的 Buff 挂载在同一个单位身上时它们会合并 , 此项可以改变这个行为",,Mark.Type
+Mark.NextBuffs,String,-1,Buff 切换设置,,,Mark.NextBuffs
+Active.Auto,String,1,自动激发时间,"整数 , 获取 Buff 后经过多久就会自动激发 , 小于 0 视为不自动激发"
+Active.Auto.Set,WICBuffSetting,1,自动激发参数设置,"Buff 参数设置 , 自动激发时会合并此设置"
+Active.Auto.Check,WICCheckTechno,1,自动激发条件,"判断单位条件 , 条件判断 , 需要满足所有的条件才会自动激发"
+Active.Auto.CheckDelay,String,1,自动激发条件判断间隔,"整数 , 每次判断的时间间隔"
+Active.Auto.CheckFail.Type,String,-1,自动激发失败处理,"自动激发判断失败处理类型 , 当自动激发失败时 , 会按照这里定义的类型执行后续操作",,Active.Auto.CheckFail.Type
+Active.Auto.CheckFail.NextBuffs,String,-1,Buff 切换设置,,,Active.Auto.CheckFail.NextBuffs
+Active.Before,String,1,激发前摇,"整数 , 挂载 Buff 后多久才允许激发"
+Active.After,String,1,激发后摇,"整数 , 激发结束后多久才允许重复激发"
+Active.Delay,String,1,生效前摇,"整数 , 激发后多久才会生效 , 生效前 Buff 过期的话就没有效果了"
+Active.Multy,Bool,1,允许重复激发,"激发期间是否允许重复激发 , 若 Buff 允许重复激发 , 则激发时附带的效果强度值会相互叠加"
+Power.Startup,String,1,默认强度值,"浮点数 , Buff 的默认效果强度值\n如果结束类型为重置 , 则每次变成挂载状态时 Buff 的实际效果强度值都会被重置为此值"
+Power.Bases,String,1,基础强度值
+After.Type,String,-1,结束类型,"准备进入结束状态时 , Buff 何去何从",,After.Type
+After.NextBuffs,String,-1,Buff 切换设置,,,After.NextBuffs
+Power.Mults,String,1,强度值乘数
+DelayAnimationBuff,String,-1,动画设置,,,DelayAnimationBuff
+Effect.Timer,String,1,生效时间,"整数 , 生效时间的最大值 , 超过时间限制会立刻进入结束状态"
+Effect.Type,String,-1,Buff 种类,,,Effect.Type
+DamageProcessType,String,-1,伤害处理类型,"对于可以造成伤害的 Buff 效果 , 是否造成真正的攻击伤害 , 不管如何设置都需要指定弹头",,DamageProcessType
+WarheadBuffWarhead,String,-1,弹头设置,,,WarheadBuffWarhead
+WarheadBuff,String,-1,,,,WarheadBuff
+WarheadDeathBuff,String,-1,,,,WarheadDeathBuff
+DeathBuff,String,-1,,,,DeathBuff

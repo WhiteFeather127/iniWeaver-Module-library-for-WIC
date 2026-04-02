@@ -1,0 +1,1566 @@
+﻿{
+    "InputTypes": {
+        "DeathBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "死亡成功动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "死亡失败动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 2,
+                        "Hint": "弹头",
+                        "LinkNode": {
+                            "Type": "Warheads",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "原地去世的概率",
+                            "用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 4,
+                        "Hint": "弹头伤害",
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 5,
+                        "Hint": "伤害模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": [
+                                "直接造成伤害 (无弹头动画)",
+                                "伤害 = [CombatDamage] -> MaxDamage"
+                            ],
+                            "1": [
+                                "引爆弹头 (结算护甲)",
+                                "伤害 = 弹头伤害 为 0 则【单位的最大生命值】"
+                            ]
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Death.NextBuffSettings"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "WarheadDeathBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 0,
+                        "Hint": [
+                            "每次引爆数量",
+                            "每次引爆的弹头数量 , 负数 = 全炸一遍"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "生效时间",
+                            "生效时间的最大值 , 超过时间限制会立刻进入结束状态"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 2,
+                        "Hint": [
+                            "随机弹头",
+                            "不全部引爆时 , 是否随机选择弹头 , 不随机则从第一个一直爆到最后一个 , 然后再回到第一个"
+                        ],
+                        "InitialValue": "no"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Amounts"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Timer"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Random"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "WarheadBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 0,
+                        "Hint": [
+                            "斩杀线",
+                            "单位的【生命值下限】 , 当单位当前生命值 <= 【生命值下限】时, 弹头才会引爆 , 小数表示百分比"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "引爆次数",
+                            "次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "每次引爆数量",
+                            "每次引爆的弹头数量 , 负数 = 全炸一遍"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "生效间隔",
+                            "每隔这么多帧炸一次"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 4,
+                        "Hint": [
+                            "随机弹头",
+                            "不全部引爆时 , 是否随机选择弹头 , 不随机则从第一个一直爆到最后一个 , 然后再回到第一个"
+                        ],
+                        "InitialValue": "no"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 5,
+                        "Hint": "弹头所属",
+                        "InitialValue": "yes",
+                        "Options": {
+                            "yes": [
+                                "Buff 所属",
+                                "引爆的弹头是 Buff 所属单位的作战方"
+                            ],
+                            "no": [
+                                "单位所属",
+                                "引爆的弹头是挂载 Buff 的单位的作战方"
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "MultipleChoice",
+                        "ValueID": 6,
+                        "SameLine": true,
+                        "Hint": [
+                            "单位作战方条件",
+                            "弹头所属 为 单位所属 时才生效 , 只有挂载 Buff 的单位的作战方符合要求时才会炸弹头"
+                        ],
+                        "InitialValue": "All",
+                        "Constraint": {
+                            "5": "no"
+                        },
+                        "Options": {
+                            "All": "不限作战方",
+                            "S": "己方",
+                            "A": "友方",
+                            "E": "敌方",
+                            "N": "中立"
+                        }
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 7,
+                        "Hint": "没到斩杀线是否消耗次数",
+                        "InitialValue": "0",
+                        "Fmt": "1_0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    },
+                    ",\"",
+                    {
+                        "ValueIdToString": 6
+                    },
+                    "\",",
+                    {
+                        "ValueIdToString": 7
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Healths"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Amounts"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delay"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Random"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Self"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 5
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Owner"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 6
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 7
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "WarheadBuffWarhead": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "弹头",
+                        "LinkNode": {
+                            "Type": "Warheads",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": "伤害",
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Warheads"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "DamageProcessType": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 0,
+                        "InitialValue": "Detonate",
+                        "Options": {
+                            "Detonate": [
+                                "引爆弹头",
+                                "引爆弹头造成伤害 , 和被攻击命中一样"
+                            ],
+                            "Damage": [
+                                "传递伤害",
+                                "不引爆弹头直接传递伤害 , 弹头的 CellSpread 和动画等需要抛射体的效果会无效 , 其他效果理论上正常"
+                            ],
+                            "Health": [
+                                "体系内扣血",
+                                "直接扣除目标的生命值 , 此处理不做受击结算 , 执行目标单位的 Buff 的【自身处理阶段】"
+                            ],
+                            "OnlyHealth": [
+                                "直接扣血",
+                                "直接扣除目标的生命值 , 不执行目标单位的 Buff 的【自身处理阶段】"
+                            ]
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            },
+            "ExportMode": "Default"
+        },
+        "Effect.Type": {
+            "Form": {
+                "Input": [
+                    {
+                        "Disabled": true,
+                        "Type": "EnumCombo",
+                        "ValueID": 0,
+                        "InitialValue": "None",
+                        "SameLine": false,
+                        "Options": {
+                            "None": "空效果",
+                            "Empty": "无效果",
+                            "OnlyDuration": "只有持续时间",
+                            "OnlyClickable": "只有可以点击",
+                            "DelayAnimation": "只有间歇动画",
+                            "Warhead": "引爆弹头",
+                            "WarheadDeath": "死亡时引爆弹头",
+                            "Death": "原地去世",
+                            "LinkedDeath": "连锁死亡",
+                            "Disappear": "原地消失",
+                            "Erase": "残血消失",
+                            "StateSilent": "静默状态",
+                            "StateTaunt": "嘲讽状态",
+                            "SkipStageActive": "跳过主动处理阶段",
+                            "Sell": "建筑变卖",
+                            "Hunt": "开始巡猎",
+                            "EXP": "经验值",
+                            "EXPPool": "经验池",
+                            "Ammo": "弹药调整",
+                            "AmmoCheck": "弹药检测",
+                            "MobileRefinery": "吸收矿物",
+                            "OreSpawner": "生产矿物",
+                            "Team": "投放单位",
+                            "TeamDeath": "死亡时投放单位",
+                            "BountyHunter": "赏金猎人",
+                            "BountyTarget": "赏金目标",
+                            "Factory": "工厂",
+                            "Skill": "技能",
+                            "Honeycomb": "蜂巢",
+                            "BuffMark": "Buff 挂载",
+                            "BuffActive": "Buff 激发",
+                            "BuffAfter": "Buff 结束",
+                            "BuffRemove": "Buff 移除",
+                            "BuffPower": "Buff 强度",
+                            "BuffChange": "Buff 转换",
+                            "BuffExtraCode": "Buff 额外代码",
+                            "AttackBuffMark": "攻击 Buff 挂载",
+                            "AttackBuffActive": "攻击 Buff 激发",
+                            "AttackBuffAfter": "攻击 Buff 结束",
+                            "AttackBuffRemove": "攻击 Buff 移除",
+                            "AttackBuffPower": "攻击 Buff 强度",
+                            "AttackBuffChange": "攻击 Buff 转换",
+                            "AttackTransBuffMark": "攻击转化 Buff 挂载",
+                            "AttackTransBuffActive": "攻击转化 Buff 激发",
+                            "AttackTransBuffPower": "攻击转化 Buff 强度",
+                            "AttackTransBuffChange": "攻击转化 Buff 转换",
+                            "DefendBuffMark": "防御 Buff 挂载",
+                            "DefendBuffActive": "防御 Buff 激发",
+                            "DefendBuffAfter": "防御 Buff 结束",
+                            "DefendBuffRemove": "防御 Buff 移除",
+                            "DefendBuffPower": "防御 Buff 强度",
+                            "DefendBuffChange": "防御 Buff 转换",
+                            "DefendTransBuffMark": "防御转化 Buff 挂载",
+                            "DefendTransBuffActive": "防御转化 Buff 激发",
+                            "DefendTransBuffPower": "防御转化 Buff 强度",
+                            "DefendTransBuffChange": "防御转化 Buff 转换",
+                            "DamagedBuffMark": "受伤 Buff 挂载",
+                            "DamagedBuffActive": "受伤 Buff 激发",
+                            "DamagedBuffAfter": "受伤 Buff 结束",
+                            "DamagedBuffRemove": "受伤 Buff 移除",
+                            "DamagedBuffPower": "受伤 Buff 强度",
+                            "DamagedBuffChange": "受伤 Buff 转换",
+                            "DamagedTransBuffMark": "受伤转化 Buff 挂载",
+                            "DamagedTransBuffActive": "受伤转化 Buff 激发",
+                            "DamagedTransBuffPower": "受伤转化 Buff 强度",
+                            "DamagedTransBuffChange": "受伤转化 Buff 转换",
+                            "KillBuffMark": "击杀 Buff 挂载",
+                            "KillBuffActive": "击杀 Buff 激发",
+                            "KillBuffAfter": "击杀 Buff 结束",
+                            "KillBuffRemove": "击杀 Buff 移除",
+                            "KillBuffPower": "击杀 Buff 强度",
+                            "KillBuffChange": "击杀 Buff 转换",
+                            "KillTransBuffMark": "击杀转化 Buff 挂载",
+                            "KillTransBuffActive": "击杀转化 Buff 激发",
+                            "KillTransBuffPower": "击杀转化 Buff 强度",
+                            "KillTransBuffChange": "击杀转化 Buff 转换",
+                            "ListenerBuffMark": "Buff 挂载监听",
+                            "ListenerBuffActive": "Buff 激发监听",
+                            "ListenerBuffAfter": "Buff 结束监听",
+                            "ListenerBuffRemove": "Buff 移除监听",
+                            "ListenerBuffPower": "Buff 强度监听",
+                            "DamageShield": "伤害承担",
+                            "DamageBlock": "伤害格挡",
+                            "DamageShare": "伤害分摊",
+                            "DamageImmune": "伤害免疫",
+                            "DamageAvoid": "伤害闪避",
+                            "DamageDefer": "伤害延迟",
+                            "DamageLimit": "伤害限制",
+                            "DamageRatio": "伤害增幅",
+                            "DamagePrevent": "伤害隔离",
+                            "DamageReflect": "伤害反射",
+                            "DamageLink": "伤害连锁",
+                            "DamageKill": "伤害即死",
+                            "DamageRefuse": "伤害免死",
+                            "DamageRecord": "伤害记录",
+                            "DamageIron": "伤害铁幕",
+                            "DamageVanish": "伤害消失",
+                            "HealthVampire": "生命汲取",
+                            "HealthLock": "生命锁定",
+                            "HealthHeal": "生命恢复",
+                            "HealthReset": "生命重置",
+                            "HealthRealloc": "生命分配",
+                            "HealthRestrict": "生命约束",
+                            "AttackRatio": "攻击增幅",
+                            "AttackIron": "攻击铁幕",
+                            "Broadcast": "广播",
+                            "BroadcastDamage": "伤害转化广播",
+                            "ListenerBlank": "空白监听",
+                            "ListenerHospital": "医院监听",
+                            "ListenerWarhead": "弹头监听",
+                            "DigitalHouseVar": "显示作战方局部变量",
+                            "DigitalEXPPool": "显示作战方经验池",
+                            "TransportFill": "载具填充-主动",
+                            "TransportEnter": "载具吸纳-主动",
+                            "TransportExit": "载具释放-主动",
+                            "TransportRemove": "载具移除-主动",
+                            "PassengerEnter": "载员进入-主动",
+                            "PassengerExit": "载员脱出-主动",
+                            "TransportAttackFill": "载具填充-攻击",
+                            "TransportAttackEnter": "载具吸纳-攻击",
+                            "TransportAttackExit": "载具释放-攻击",
+                            "TransportAttackRemove": "载具移除-攻击",
+                            "PassengerAttackEnter": "载员进入-攻击",
+                            "PassengerAttackExit": "载员脱出-攻击",
+                            "TransportDefendFill": "载具填充-防御",
+                            "TransportDefendEnter": "载具吸纳-防御",
+                            "TransportDefendExit": "载具释放-防御",
+                            "TransportDefendRemove": "载具移除-防御",
+                            "PassengerDefendEnter": "载员进入-防御",
+                            "PassengerDefendExit": "载员脱出-防御",
+                            "WeaponChange": "替换武器",
+                            "WeaponChangeDeath": "替换死亡武器",
+                            "WeaponExpelliarmus": "除你武器",
+                            "WeaponFire": "发射武器",
+                            "WeaponSelf": "自瞄武器",
+                            "WeaponShoot": "齐射武器",
+                            "WeaponShootAll": "散射武器",
+                            "WeaponShrapnel": "溅射武器",
+                            "RevengeDeath": "死亡复仇",
+                            "RevengeAttack": "攻击复仇",
+                            "RevengeDamage": "受伤复仇",
+                            "MartyrdomDeath": "死亡殉爆",
+                            "MartyrdomAttack": "攻击殉爆",
+                            "MartyrdomDamage": "受伤殉爆",
+                            "Prop.MultSpeed": "加成属性-倍率移动",
+                            "Prop.MultArmor": "加成属性-倍率护甲",
+                            "Prop.MultVersus": "加成属性-倍率护甲伤害",
+                            "Prop.MultAttack": "加成属性-倍率火力",
+                            "Prop.MultROF": "加成属性-倍率射速",
+                            "Prop.MultEXP": "加成属性-倍率经验值获取",
+                            "Prop.MultEXPProvide": "加成属性-倍率经验值提供",
+                            "Prop.MultEXPCost": "加成属性-倍率经验值需求",
+                            "Prop.MultRangeWeapon": "加成属性-倍率武器射程",
+                            "Prop.MultCellSpread": "加成属性-倍率弹头溅射范围",
+                            "Prop.ExMultSpeed": "加成属性-累乘移动",
+                            "Prop.ExMultArmor": "加成属性-累乘护甲",
+                            "Prop.ExMultVersus": "加成属性-累乘护甲伤害",
+                            "Prop.ExMultAttack": "加成属性-累乘火力",
+                            "Prop.ExMultROF": "加成属性-累乘射速",
+                            "Prop.ExMultEXP": "加成属性-累乘经验值获取",
+                            "Prop.ExMultEXPProvide": "加成属性-累乘经验值提供",
+                            "Prop.ExMultEXPCost": "加成属性-累乘经验值需求",
+                            "Prop.ExMultRangeWeapon": "加成属性-累乘武器射程",
+                            "Prop.ExMultCellSpread": "加成属性-累乘弹头溅射范围",
+                            "Prop.AddSpeed": "加成属性-追加移动",
+                            "Prop.AddDamage": "加成属性-追加伤害",
+                            "Prop.AddAttack": "加成属性-追加攻击",
+                            "Prop.AddROF": "加成属性-追加射速",
+                            "Prop.AddEXP": "加成属性-追加经验值获取",
+                            "Prop.AddEXPProvide": "加成属性-追加经验值提供",
+                            "Prop.AddEXPCost": "加成属性-追加经验值需求",
+                            "Prop.AddRangeWeapon": "加成属性-追加武器射程",
+                            "Prop.AddCellSpread": "加成属性-追加弹头溅射范围",
+                            "Prop.FinalSpeed": "加成属性-最终移动",
+                            "Prop.FinalDamage": "加成属性-最终伤害",
+                            "Prop.FinalAttack": "加成属性-最终攻击",
+                            "Prop.FinalROF": "加成属性-最终射速",
+                            "Prop.FinalEXP": "加成属性-最终经验值获取",
+                            "Prop.FinalEXPProvide": "加成属性-最终经验值提供",
+                            "Prop.FinalEXPCost": "加成属性-最终经验值需求",
+                            "Prop.FinalRangeWeapon": "加成属性-最终武器射程",
+                            "Prop.FinalCellSpread": "加成属性-最终弹头溅射范围",
+                            "Prop.ImmuneCrush": "能力属性-免疫碾压",
+                            "Prop.ImmuneCrushAdvance": "能力属性-免疫高级碾压",
+                            "Prop.ImmuneRadiation": "能力属性-免疫辐射弹头",
+                            "Prop.ImmunePsionicDamage": "能力属性-免疫心灵伤害弹头",
+                            "Prop.ImmunePsionic": "能力属性-免疫心控弹头",
+                            "Prop.ImmuneBerzerk": "能力属性-免疫狂暴弹头",
+                            "Prop.ImmunePoison": "能力属性-免疫毒素弹头",
+                            "Prop.ImmuneWarp": "能力属性-免疫超时空传送弹头",
+                            "Prop.ImmuneEMP": "能力属性-免疫电磁脉冲弹头",
+                            "Prop.SelfHealing": "能力属性-自愈",
+                            "Prop.SelfHealing.Percent": "能力属性-自愈每次恢复的生命值比例",
+                            "Prop.SelfHealing.Cap": "能力属性-自愈最大生命值比例",
+                            "Prop.SelfHealing.Delay": "能力属性-自愈恢复时间间隔",
+                            "Prop.SelfHealing.CombatDelay": "能力属性-自愈脱战时间间隔",
+                            "Prop.Tint": "染色",
+                            "CheckNumber.Eq": "判断数值-主动等于",
+                            "CheckNumber.NE": "判断数值-主动不等于",
+                            "CheckNumber.GT": "判断数值-主动大于",
+                            "CheckNumber.GE": "判断数值-主动大于等于",
+                            "CheckNumber.LT": "判断数值-主动小于",
+                            "CheckNumber.LE": "判断数值-主动小于等于",
+                            "CheckNumberDeath.Eq": "判断数值-死亡等于",
+                            "CheckNumberDeath.NE": "判断数值-死亡不等于",
+                            "CheckNumberDeath.GT": "判断数值-死亡大于",
+                            "CheckNumberDeath.GE": "判断数值-死亡大于等于",
+                            "CheckNumberDeath.LT": "判断数值-死亡小于",
+                            "CheckNumberDeath.LE": "判断数值-死亡小于等于",
+                            "HouseVar.Add": "操作作战方局部变量-主动加",
+                            "HouseVar.Mult": "操作作战方局部变量-主动乘",
+                            "HouseVar.Pow": "操作作战方局部变量-主动指数",
+                            "HouseVar.Log": "操作作战方局部变量-主动对数",
+                            "HouseVar.Mod": "操作作战方局部变量-主动取模",
+                            "HouseVar.Eq": "操作作战方局部变量-主动等于",
+                            "HouseVar.NE": "操作作战方局部变量-主动不等于",
+                            "HouseVar.GT": "操作作战方局部变量-主动大于",
+                            "HouseVar.GE": "操作作战方局部变量-主动大于等于",
+                            "HouseVar.LT": "操作作战方局部变量-主动小于",
+                            "HouseVar.LE": "操作作战方局部变量-主动小于等于",
+                            "HouseVar.Not": "操作作战方局部变量-主动取反",
+                            "HouseVar.Abs": "操作作战方局部变量-主动绝对值",
+                            "HouseVar.Ceil": "操作作战方局部变量-主动向上取整",
+                            "HouseVar.Floor": "操作作战方局部变量-主动向下取整",
+                            "HouseVar.Round": "操作作战方局部变量-主动四舍五入",
+                            "HouseVar.Set": "操作作战方局部变量-主动覆盖",
+                            "HouseVar.Max": "操作作战方局部变量-主动最大",
+                            "HouseVar.Min": "操作作战方局部变量-主动最小",
+                            "HouseVar.Random": "操作作战方局部变量-主动随机",
+                            "HouseVar.Delete": "操作作战方局部变量-主动移除",
+                            "HouseVarDeath.Add": "操作作战方局部变量-死亡加",
+                            "HouseVarDeath.Mult": "操作作战方局部变量-死亡乘",
+                            "HouseVarDeath.Pow": "操作作战方局部变量-死亡指数",
+                            "HouseVarDeath.Log": "操作作战方局部变量-死亡对数",
+                            "HouseVarDeath.Mod": "操作作战方局部变量-死亡取模",
+                            "HouseVarDeath.Eq": "操作作战方局部变量-死亡等于",
+                            "HouseVarDeath.NE": "操作作战方局部变量-死亡不等于",
+                            "HouseVarDeath.GT": "操作作战方局部变量-死亡大于",
+                            "HouseVarDeath.GE": "操作作战方局部变量-死亡大于等于",
+                            "HouseVarDeath.LT": "操作作战方局部变量-死亡小于",
+                            "HouseVarDeath.LE": "操作作战方局部变量-死亡小于等于",
+                            "HouseVarDeath.Not": "操作作战方局部变量-死亡取反",
+                            "HouseVarDeath.Abs": "操作作战方局部变量-死亡绝对值",
+                            "HouseVarDeath.Ceil": "操作作战方局部变量-死亡向上取整",
+                            "HouseVarDeath.Floor": "操作作战方局部变量-死亡向下取整",
+                            "HouseVarDeath.Round": "操作作战方局部变量-死亡四舍五入",
+                            "HouseVarDeath.Set": "操作作战方局部变量-死亡覆盖",
+                            "HouseVarDeath.Max": "操作作战方局部变量-死亡最大",
+                            "HouseVarDeath.Min": "操作作战方局部变量-死亡最小",
+                            "HouseVarDeath.Random": "操作作战方局部变量-死亡随机",
+                            "HouseVarDeath.Delete": "操作作战方局部变量-死亡移除"
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            },
+            "ExportMode": "Default"
+        },
+        "DelayAnimationBuff": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "动画",
+                            "每隔一定时间播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "InitialValue": "31",
+                        "Hint": [
+                            "播放间隔",
+                            "每次播放动画的延迟时间"
+                        ]
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.AnimDelays"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "After.NextBuffs": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "切换的 Buff",
+                        "LinkNode": {
+                            "Type": "WICBuffType",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "Buff 参数设置",
+                        "LinkNode": {
+                            "Type": "WICBuffSetting",
+                            "LinkLimit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "After.NextBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "After.NextBuffs.Sets"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "Active.Auto.CheckFail.NextBuffs": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "切换的 Buff",
+                        "LinkNode": {
+                            "Type": "WICBuffType",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "Buff 参数设置",
+                        "LinkNode": {
+                            "Type": "WICBuffSetting",
+                            "LinkLimit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Active.Auto.CheckFail.NextBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Active.Auto.CheckFail.NextBuffs.Sets"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "After.Type": {
+            "Form": {
+                "Input": [
+                    {
+                        "ValueID": 0,
+                        "InitialValue": "After",
+                        "Disabled": false,
+                        "Type": "EnumCombo",
+                        "ColoredFrame": false,
+                        "Options": {
+                            "After": [
+                                "结束",
+                                "变成结束状态"
+                            ],
+                            "Reset": [
+                                "重置",
+                                "变成挂载状态 , 可以重新激发"
+                            ],
+                            "Remove": [
+                                "移除",
+                                "移除此 Buff"
+                            ],
+                            "Next": [
+                                "切换",
+                                "切换至新的 Buff (旧的会被移除)"
+                            ],
+                            "AfterNext": [
+                                "挂载结束后切换",
+                                "切换至新的 Buff (旧的会被移除) , 但是是在挂载持续时间结束之后"
+                            ]
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Default"
+            },
+            "NewLineAfterDesc": false
+        },
+        "Active.Auto.CheckFail.Type": {
+            "Form": {
+                "Input": [
+                    {
+                        "ValueID": 0,
+                        "InitialValue": "Continue",
+                        "Disabled": false,
+                        "Type": "EnumCombo",
+                        "ColoredFrame": false,
+                        "Options": {
+                            "Continue": [
+                                "重判",
+                                "继续判断条件 , 在等待判断间隔这么久之后继续尝试激发"
+                            ],
+                            "ContinueMerge": [
+                                "合并重判",
+                                "同 重判 , 并且给 Buff 合并第一项 Buff 参数设置"
+                            ],
+                            "After": [
+                                "结束",
+                                "变成结束状态"
+                            ],
+                            "Remove": [
+                                "移除",
+                                "移除此 Buff"
+                            ],
+                            "Next": [
+                                "切换",
+                                "切换至新的 Buff (旧的会被移除)"
+                            ]
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Default"
+            },
+            "NewLineAfterDesc": false
+        },
+        "Mark.NextBuffs": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "切换的 Buff",
+                        "LinkNode": {
+                            "Type": "WICBuffType",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "Buff 参数设置",
+                        "LinkNode": {
+                            "Type": "WICBuffSetting",
+                            "LinkLimit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Mark.NextBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Mark.NextBuff.Sets"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "Mark.Type": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 0,
+                        "InitialValue": "Merge",
+                        "Options": {
+                            "Merge": [
+                                "合并",
+                                "与原来的 Buff 合并 (也就是原来的行为)"
+                            ],
+                            "Replace": [
+                                "替换",
+                                "干掉原来的 Buff , 重新挂载"
+                            ],
+                            "Next": [
+                                "切换",
+                                "使用新的 Buff 类型再次尝试挂载 (新的 Buff 类型如果也已存在且也是 Mark.Type=Next 则会再次更换 , 请注意死循环)"
+                            ],
+                            "Multy": [
+                                "共存",
+                                "多个实例并存 , 部分情况下可能导致 \"是否挂载此种 Buff 的判定\" 不准确的问题 , 并且可能存在潜在的性能问题"
+                            ],
+                            "None": [
+                                "什么都不干",
+                                "放弃挂载 , 什么都不做"
+                            ]
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            }
+        },
+        "AllowGameMode": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Bool",
+                        "ValueID": 0,
+                        "Hint": "战役模式",
+                        "InitialValue": true
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 1,
+                        "Hint": "其他模式 (遭遇战)",
+                        "InitialValue": true
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            }
+        },
+        "AllowAI": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Bool",
+                        "ValueID": 0,
+                        "Hint": "简单",
+                        "InitialValue": true
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 1,
+                        "Hint": "中等",
+                        "InitialValue": true
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 2,
+                        "Hint": "冷酷",
+                        "InitialValue": true
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2
+                        ]
+                    }
+                ]
+            }
+        },
+        "AllowExist": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Bool",
+                        "ValueID": 0,
+                        "Hint": [
+                            "转换",
+                            "包括展开或收起 , 还有类似多段升级的这种 , 暂不支持武直"
+                        ],
+                        "InitialValue": true
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 1,
+                        "Hint": "进入载具",
+                        "InitialValue": true
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 2,
+                        "Hint": "进入建筑驻军",
+                        "InitialValue": true
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 3,
+                        "Hint": [
+                            "断电",
+                            "单位断电、被 EMP、被静默等\n被静默需要分模式 , 仅建筑的模式 1 和 2 , 以及单位的模式 1 会被读取"
+                        ],
+                        "InitialValue": true
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ]
+                    }
+                ]
+            }
+        },
+        "Order": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "SliderInt",
+                        "ValueID": 0,
+                        "InitialValue": "0",
+                        "Min": -10,
+                        "Max": 10
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            }
+        },
+        "WICBuffAnim": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "挂载",
+                            "挂载状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": [
+                            "激发",
+                            "激发状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效",
+                            "生效状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 3,
+                        "Hint": [
+                            "结束",
+                            "结束状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    "Anim",
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "SplitValue"
+            }
+        },
+        "WICBuffAnimO": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "挂载",
+                            "挂载状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": [
+                            "激发",
+                            "激发状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效",
+                            "生效状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 3,
+                        "Hint": [
+                            "结束",
+                            "结束状态时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ]
+                    }
+                ]
+            }
+        },
+        "FactoryMatrix1": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "单位",
+                        "LinkNode": {
+                            "Type": "TechnoTypes",
+                            "LinkLimit": 1,
+                            "Color": [
+                                0,
+                                255,
+                                0
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "InitialValue": 1,
+                        "Hint": "生产时间"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "InitialValue": 1,
+                        "Hint": "生产成本"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "InitialValue": 1,
+                        "Hint": "建造数量限制"
+                    },
+                    {
+                        "Type": "InputText",
+                        "ValueID": 4,
+                        "Hint": "Buff 的个数",
+                        "InitialValue": "114"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "FromKey": "订单上限"
+                            },
+                            ",",
+                            {
+                                "CollectID": 1
+                            },
+                            ",",
+                            {
+                                "CollectID": 2
+                            },
+                            ",",
+                            {
+                                "CollectID": 3
+                            },
+                            ",",
+                            {
+                                "CollectID": 1,
+                                "FromKey": "FactoryMatrix2",
+                                "NonEmpty": true
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Technos"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 4
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "FactoryMatrix2": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "接受的 BUFF",
+                        "LinkNode": {
+                            "Type": "WICBuff",
+                            "LinkLimit": 1,
+                            "Color": [
+                                12,
+                                79,
+                                255
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "InputText",
+                        "ValueID": 1,
+                        "Hint": "Buff 的持续时间",
+                        "InitialValue": "114"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.AcceptBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "订单上限": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "InputText",
+                        "ValueID": 0,
+                        "InitialValue": "114"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": "Nothing"
+        }
+    },
+    "RegisterTypes": {
+        "WICBuffType": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC Buff",
+            "NeedRegisterList": false
+        },
+        "WICBuffSetting": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC Buff 参数设置",
+            "NeedRegisterList": false
+        },
+        "WICCheckTechno": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 判断单位条件",
+            "NeedRegisterList": false
+        }
+    }
+}
