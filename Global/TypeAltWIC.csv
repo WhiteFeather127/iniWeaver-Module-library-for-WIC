@@ -53,3 +53,4 @@ StateSilentBuff,String,-1,,,,StateSilentBuff
 StateTauntBuff,String,-1,,,,StateTauntBuff
 SkipStageActiveBuff,,,,,,SkipStageActiveBuff
 EraseBuff,String,-1,,,,EraseBuff
+SellBuff,String,-1,,,,SellBuff

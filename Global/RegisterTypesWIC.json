@@ -1,5 +1,76 @@
 ﻿{
     "InputTypes": {
+        "SellBuff":{
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "变卖成功动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "变卖失败动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "变卖成功的概率",
+                            "用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "SkipStageActiveBuff": {
             "Form": {
                 "Input": [
