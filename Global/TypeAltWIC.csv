@@ -57,3 +57,4 @@ SellBuff,String,-1,,,,SellBuff
 HuntBuff,String,-1,,,,HuntBuff
 EXPBuff,String,-1,,,,EXPBuff
 EXPPoolBuff,String,-1,,,,EXPPoolBuff
+AmmoBuff,String,-1,,,,AmmoBuff

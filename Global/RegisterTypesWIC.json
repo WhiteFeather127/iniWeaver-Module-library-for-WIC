@@ -1,5 +1,136 @@
 ﻿{
     "InputTypes": {
+        "AmmoBuff":{
+            "Form":{
+                "Input":[
+                    {
+                        "Type":"Link",
+                        "ValueID":0,
+                        "Hint": "生效动画",
+                        "LinkNode":{
+                            "Type":"Animations",
+                            "LinkLimit":1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "生效次数",
+                            "恢复弹药的次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效间隔",
+                            "每隔这么多帧恢复一次"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "恢复量",
+                            "恢复的数量 , 用小数表示满弹药百分比"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 4,
+                        "Hint": [
+                            "恢复概率",
+                            "用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 5,
+                        "Hint": "恢复量上限"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 6,
+                        "Hint": "恢复量下限"
+                    }
+                ],
+                "Format":[
+                    {
+                        "ValueList":[
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6
+                        ]
+                    }
+                ]
+            },
+            "ExportMode":{
+                "Type":"Recompose",
+                "ExportLines":[
+                    {
+                        "Key":[
+                            "Effect.Anims"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":0
+                            }
+                        ]
+                    },
+                    {
+                        "Key":[
+                            "Effect.Counts"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":1
+                            }
+                        ]
+                    },
+                    {
+                        "Key":[
+                            "Effect.Delay"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":2
+                            }
+                        ]
+                    },
+                    {
+                        "Key":[
+                            "Power.Bases"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":3
+                            },
+                            ",",
+                            {
+                                "ValueIDToString":4
+                            },
+                            ",",
+                            {
+                                "ValueIDToString":5
+                            },
+                            ",",
+                            {
+                                "ValueIDToString":6
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "EXPPoolBuff":{
             "Form":{
                 "Input":[
