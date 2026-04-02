@@ -63,3 +63,19 @@ AmmoCheckBuffAcceptBuffs,String,-1,,,,AmmoCheckBuffAcceptBuffs
 AmmoCheckBuffWarheads,String,-1,,,,AmmoCheckBuffWarheads
 MobileRefineryBuff,String,-1,,,,MobileRefineryBuff
 OreSpawnerBuff,String,-1,,,,OreSpawnerBuff
+TechnoPacks,PackTypes.TechnoData,-1
+SWPacks,PackTypes.SWData,-1
+NumberPacks,PackTypes.NumberData,-1
+ScriptPacks,PackTypes.ScriptData,-1
+OffsetPacks,PackTypes.OffsetData,-1
+TimerPacks,PackTypes.TimerData,-1
+AnimPacks,PackTypes.AnimData,-1
+TextPacks,PackTypes.TextData,-1
+Single,Bool,1,统一作战小队,"是否投放的单位都处于同一个作战小队中 , 而非每个单位一个独立的作战小队"
+EffectRange,String,1,单位的最大投放范围
+TeamBuff,String,-1,,,,TeamBuff
+TeamDataPackTheseBuffs,String,-1,,,,TeamDataPackTheseBuffs
+TeamDataPackThoseBuffs,String,-1,,,,TeamDataPackThoseBuffs
+TeamTechnoDataTechno,String,-1,,,,TeamTechnoDataTechno
+Total,String,1,单位总数,"单位的投放总数 , 小于 0 视为列表中的单位全部投放一遍"
+EffectRange,String,1,投放范围,"3"

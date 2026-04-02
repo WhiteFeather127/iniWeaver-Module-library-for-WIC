@@ -1,5 +1,341 @@
 ﻿{
     "InputTypes": {
+        "TeamTechnoDataTechno": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "单位",
+                        "LinkNode": {
+                            "Type": "TechnoTypes",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "权重",
+                            "每个单位的权重"
+                        ],
+                        "InitialValue": "1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "数量",
+                            "每个单位的投放数量"
+                        ],
+                        "InitialValue": "1"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 2
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Technos"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Weights"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Counts"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 2
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamDataPackThoseBuffs": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "子向父挂 Buff",
+                            "投放出来的单位向投放者挂载的 Buff"
+                        ],
+                        "LinkNode": {
+                            "Type": "WICBuffType",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "Buff 参数设置",
+                        "LinkNode": {
+                            "Type": "WICBuffSetting",
+                            "Limit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "TheseBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0,
+                                "FromKey": "TeamDataPackTheseBuffs"
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "ThoseBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "BuffSets"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1,
+                                "FromKey": "TeamDataPackTheseBuffs"
+                            },
+                            ",",
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamDataPackTheseBuffs": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "父向子挂 Buff",
+                            "投放者向投放出来的单位挂载的 Buff"
+                        ],
+                        "LinkNode": {
+                            "Type": "WICBuffType",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "Buff 参数设置",
+                        "LinkNode": {
+                            "Type": "WICBuffSetting",
+                            "Limit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": "Nothing"
+        },
+        "TeamBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "投放动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "数据包",
+                        "LinkNode": {
+                            "Type": "DataPackTypes",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "投放次数",
+                            "投放次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "投放间隔",
+                            "每隔这么多帧投一次"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 4,
+                        "Hint": "单位阵营",
+                        "InitialValue": "yes",
+                        "Options": {
+                            "yes": "投出的单位是 Buff 所属单位的阵营",
+                            "no": "投出的单位是挂载 Buff 的单位的阵营"
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 5,
+                        "Hint": [
+                            "投放的概率",
+                            "未成功投放也会消耗次数 , 用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.DataPack"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delay"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Self"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 5
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "OreSpawnerBuff": {
             "Form": {
                 "Input": [
@@ -3367,6 +3703,87 @@
                 253
             ],
             "Name": "WIC 按钮设置",
+            "NeedRegisterList": false
+        },
+        "DataPackTypes": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 数据包类型",
+            "NeedRegisterList": true
+        },
+        "PackTypes.OffsetData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 偏移数据集合",
+            "NeedRegisterList": false
+        },
+        "PackTypes.AnimData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 动画数据集合",
+            "NeedRegisterList": false
+        },
+        "PackTypes.TechnoData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 单位数据集合",
+            "NeedRegisterList": false
+        },
+        "PackTypes.NumberData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 数值数据集合",
+            "NeedRegisterList": false
+        },
+        "PackTypes.ScriptData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 脚本数据集合",
+            "NeedRegisterList": false
+        },
+        "PackTypes.TimerData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 计时数据集合",
+            "NeedRegisterList": false
+        },
+        "PackTypes.SWData": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 超武数据集合",
+            "NeedRegisterList": false
+        },
+        "PackType.PrintText": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 输出文本设置",
             "NeedRegisterList": false
         }
     }
