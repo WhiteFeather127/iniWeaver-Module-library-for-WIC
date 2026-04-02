@@ -52,3 +52,4 @@ DisappearBuff,String,-1,,,,DisappearBuff
 StateSilentBuff,String,-1,,,,StateSilentBuff
 StateTauntBuff,String,-1,,,,StateTauntBuff
 SkipStageActiveBuff,,,,,,SkipStageActiveBuff
+EraseBuff,String,-1,,,,EraseBuff
