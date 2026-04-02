@@ -51,3 +51,4 @@ DeathBuff,String,-1,,,,DeathBuff
 DisappearBuff,String,-1,,,,DisappearBuff
 StateSilentBuff,String,-1,,,,StateSilentBuff
 StateTauntBuff,String,-1,,,,StateTauntBuff
+SkipStageActiveBuff,,,,,,SkipStageActiveBuff
