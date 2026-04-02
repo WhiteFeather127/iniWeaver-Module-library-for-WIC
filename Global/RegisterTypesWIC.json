@@ -1,5 +1,102 @@
 ﻿{
     "InputTypes": {
+        "EXPPoolBuff":{
+            "Form":{
+                "Input":[
+                    {
+                        "Type":"Link",
+                        "ValueID":0,
+                        "Hint": "生效动画",
+                        "LinkNode":{
+                            "Type":"Animations",
+                            "LinkLimit":1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "生效次数",
+                            "增加经验值的次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效间隔",
+                            "每隔这么多帧增加一次"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "经验值",
+                            "每次增加的经验值 , 用小数表示升级所需经验百分比"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format":[
+                    {
+                        "ValueList":[
+                            0,
+                            1,
+                            2,
+                            3
+                        ]
+                    }
+                ]
+            },
+            "ExportMode":{
+                "Type":"Recompose",
+                "ExportLines":[
+                    {
+                        "Key":[
+                            "Effect.Anims"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":0
+                            }
+                        ]
+                    },
+                    {
+                        "Key":[
+                            "Effect.Counts"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":1
+                            }
+                        ]
+                    },
+                    {
+                        "Key":[
+                            "Effect.Delay"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":2
+                            }
+                        ]
+                    },
+                    {
+                        "Key":[
+                            "Power.Bases"
+                        ],
+                        "Value":[
+                            {
+                                "ValueIDToString":3
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "EXPBuff": {
             "Form": {
                 "Input": [
