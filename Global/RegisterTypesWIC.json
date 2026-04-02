@@ -1,5 +1,211 @@
 ﻿{
     "InputTypes": {
+        "OreSpawnerBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "生产动画",
+                            "生产矿物时播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": [
+                            "矿物动画",
+                            "生产矿物时在矿物处播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效次数",
+                            "生产矿物的次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "生产间隔",
+                            "每隔这么多帧生产一次矿物"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 4,
+                        "Hint": [
+                            "生效范围",
+                            "生产矿物的半径 , 单位 : 格子"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 5,
+                        "Hint": "形状模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": [
+                                "圆形",
+                                "以生效范围为半径的圆形范围"
+                            ],
+                            "1": [
+                                "正方形",
+                                "以生效范围为边长的正方形范围"
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 6,
+                        "Hint": [
+                            "矿物种类",
+                            "这里填写矿物注册表 [Tiberiums] 的索引值"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 7,
+                        "Hint": [
+                            "生产量",
+                            "每次最多生产多少个格子的矿物"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 8,
+                        "Hint": [
+                            "生产率",
+                            "生产矿物时扣钱的比例 , 用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 9,
+                        "Hint": [
+                            "生产量上限",
+                            "每个格子的最大生产量 , 这里指的是原始值 , 实际处理时四舍五入"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8,
+                            9
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delay"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Range"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 5
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 6
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 7
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 8
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 9
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "MobileRefineryBuff": {
             "Form": {
                 "Input": [
@@ -129,8 +335,16 @@
                             2,
                             3,
                             4,
-                            5,
-                            6,
+                            5
+                        ]
+                    },
+                    ",\"",
+                    {
+                        "ValueIDToString": 6
+                    },
+                    "\"",
+                    {
+                        "ValueList": [
                             7,
                             8,
                             9,
