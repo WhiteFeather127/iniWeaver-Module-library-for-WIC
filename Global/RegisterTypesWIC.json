@@ -51,9 +51,21 @@
                             "Power.Bases"
                         ],
                         "Value": [
-                            {"CollectID":6,"FromKey":"AmmoCheckBuff"},",",
-                            {"CollectID":7,"FromKey":"AmmoCheckBuff"},",",
-                            {"CollectID":1,"FromKey":"AmmoCheckBuffAcceptBuffs"},",",
+                            {
+                                "CollectID": 6,
+                                "FromKey": "AmmoCheckBuff"
+                            },
+                            ",",
+                            {
+                                "CollectID": 7,
+                                "FromKey": "AmmoCheckBuff"
+                            },
+                            ",",
+                            {
+                                "CollectID": 1,
+                                "FromKey": "AmmoCheckBuffAcceptBuffs"
+                            },
+                            ",",
                             {
                                 "CollectID": 1
                             }
