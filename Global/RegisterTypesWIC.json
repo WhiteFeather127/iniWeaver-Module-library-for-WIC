@@ -1,15 +1,278 @@
 ﻿{
     "InputTypes": {
-        "AmmoBuff":{
-            "Form":{
-                "Input":[
+        "AmmoCheckBuffWarheads": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
                     {
-                        "Type":"Link",
-                        "ValueID":0,
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "满足条件引爆弹头",
+                            "满足条件时引爆这些弹头"
+                        ],
+                        "LinkNode": {
+                            "Type": "Warheads",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": "伤害",
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Warheads"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {"CollectID":6,"FromKey":"AmmoCheckBuff"},",",
+                            {"CollectID":7,"FromKey":"AmmoCheckBuff"},",",
+                            {"CollectID":1,"FromKey":"AmmoCheckBuffAcceptBuffs"},",",
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "AmmoCheckBuffAcceptBuffs": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "满足条件挂载 Buff",
+                            "满足条件时挂载这些 Buff"
+                        ],
+                        "LinkNode": {
+                            "Type": "WICBuffType",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": "挂载持续时间",
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.AcceptBuffs"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "AmmoCheckBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 0,
+                        "Hint": [
+                            "生效次数",
+                            "检测的次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "检测间隔",
+                            "每隔这么多帧检测一次"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "每次引爆数量",
+                            "每次引爆的弹头数量 , 负数 = 全炸一遍"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "触发时间间隔",
+                            "Buff 和弹头的触发时间间隔 , 负数 = 只触发 1 次且值为初始冷却时间 (绝对值)"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "Bool",
+                        "ValueID": 4,
+                        "Hint": [
+                            "随机弹头",
+                            "不全部引爆时 , 是否随机选择弹头 , 不随机则从第一个一直炸到最后一个"
+                        ],
+                        "InitialValue": "no"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 5,
+                        "Hint": "检测模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": "弹药符合上下限则算满足条件",
+                            "1": "弹药不符合上下限则算满足条件"
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 6,
+                        "Hint": [
+                            "弹药量上限",
+                            "检测的上限值"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 7,
+                        "Hint": [
+                            "弹药量下限",
+                            "检测的下限值"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delay"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Amounts"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Random"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 5
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "AmmoBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
                         "Hint": "生效动画",
-                        "LinkNode":{
-                            "Type":"Animations",
-                            "LinkLimit":1
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
                         }
                     },
                     {
@@ -61,9 +324,9 @@
                         "InitialValue": "0"
                     }
                 ],
-                "Format":[
+                "Format": [
                     {
-                        "ValueList":[
+                        "ValueList": [
                             0,
                             1,
                             2,
@@ -75,74 +338,74 @@
                     }
                 ]
             },
-            "ExportMode":{
-                "Type":"Recompose",
-                "ExportLines":[
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
                     {
-                        "Key":[
+                        "Key": [
                             "Effect.Anims"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":0
+                                "ValueIDToString": 0
                             }
                         ]
                     },
                     {
-                        "Key":[
+                        "Key": [
                             "Effect.Counts"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":1
+                                "ValueIDToString": 1
                             }
                         ]
                     },
                     {
-                        "Key":[
+                        "Key": [
                             "Effect.Delay"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":2
+                                "ValueIDToString": 2
                             }
                         ]
                     },
                     {
-                        "Key":[
+                        "Key": [
                             "Power.Bases"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":3
+                                "ValueIDToString": 3
                             },
                             ",",
                             {
-                                "ValueIDToString":4
+                                "ValueIDToString": 4
                             },
                             ",",
                             {
-                                "ValueIDToString":5
+                                "ValueIDToString": 5
                             },
                             ",",
                             {
-                                "ValueIDToString":6
+                                "ValueIDToString": 6
                             }
                         ]
                     }
                 ]
             }
         },
-        "EXPPoolBuff":{
-            "Form":{
-                "Input":[
+        "EXPPoolBuff": {
+            "Form": {
+                "Input": [
                     {
-                        "Type":"Link",
-                        "ValueID":0,
+                        "Type": "Link",
+                        "ValueID": 0,
                         "Hint": "生效动画",
-                        "LinkNode":{
-                            "Type":"Animations",
-                            "LinkLimit":1
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
                         }
                     },
                     {
@@ -173,9 +436,9 @@
                         "InitialValue": "0"
                     }
                 ],
-                "Format":[
+                "Format": [
                     {
-                        "ValueList":[
+                        "ValueList": [
                             0,
                             1,
                             2,
@@ -184,46 +447,46 @@
                     }
                 ]
             },
-            "ExportMode":{
-                "Type":"Recompose",
-                "ExportLines":[
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
                     {
-                        "Key":[
+                        "Key": [
                             "Effect.Anims"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":0
+                                "ValueIDToString": 0
                             }
                         ]
                     },
                     {
-                        "Key":[
+                        "Key": [
                             "Effect.Counts"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":1
+                                "ValueIDToString": 1
                             }
                         ]
                     },
                     {
-                        "Key":[
+                        "Key": [
                             "Effect.Delay"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":2
+                                "ValueIDToString": 2
                             }
                         ]
                     },
                     {
-                        "Key":[
+                        "Key": [
                             "Power.Bases"
                         ],
-                        "Value":[
+                        "Value": [
                             {
-                                "ValueIDToString":3
+                                "ValueIDToString": 3
                             }
                         ]
                     }
@@ -239,7 +502,7 @@
                         "Hint": "生效动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -274,8 +537,8 @@
                         "ValueID": 4,
                         "Hint": [
                             "获得经验值的概率",
-                            "用小数表示"]
-                        ,
+                            "用小数表示"
+                        ],
                         "InitialValue": "0"
                     }
                 ],
@@ -341,7 +604,7 @@
                 ]
             }
         },
-        "HuntBuff":{
+        "HuntBuff": {
             "Form": {
                 "Input": [
                     {
@@ -350,7 +613,7 @@
                         "Hint": "进入狩猎成功动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -359,7 +622,7 @@
                         "Hint": "进入狩猎失败动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -411,9 +674,8 @@
                     }
                 ]
             }
-
         },
-        "SellBuff":{
+        "SellBuff": {
             "Form": {
                 "Input": [
                     {
@@ -422,7 +684,7 @@
                         "Hint": "变卖成功动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -431,7 +693,7 @@
                         "Hint": "变卖失败动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -505,7 +767,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -517,7 +779,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -529,7 +791,7 @@
                         ],
                         "LinkNode": {
                             "Type": "TechnoTypes",
-                            "LinkLimit": -1
+                            "Limit": -1
                         }
                     },
                     {
@@ -730,7 +992,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -896,7 +1158,7 @@
                         "Hint": "消失成功动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -953,7 +1215,7 @@
                         "Hint": "消失成功动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -962,7 +1224,7 @@
                         "Hint": "消失失败动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -990,7 +1252,7 @@
                         "Hint": "剩余等待时间",
                         "LinkNode": {
                             "Type": "DigitalSetting",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     }
                 ],
@@ -1065,7 +1327,7 @@
                         "Hint": "死亡成功动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1074,7 +1336,7 @@
                         "Hint": "死亡失败动画",
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1083,7 +1345,7 @@
                         "Hint": "弹头",
                         "LinkNode": {
                             "Type": "Warheads",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1441,7 +1703,7 @@
                 ]
             }
         },
-        "WarheadBuffWarhead": {
+        "WarheadBuffWarheads": {
             "Multiple": true,
             "Form": {
                 "Input": [
@@ -1451,7 +1713,7 @@
                         "Hint": "弹头",
                         "LinkNode": {
                             "Type": "Warheads",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1816,7 +2078,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1874,7 +2136,7 @@
                         "Hint": "切换的 Buff",
                         "LinkNode": {
                             "Type": "WICBuffType",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1883,7 +2145,7 @@
                         "Hint": "Buff 参数设置",
                         "LinkNode": {
                             "Type": "WICBuffSetting",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     }
                 ],
@@ -1932,7 +2194,7 @@
                         "Hint": "切换的 Buff",
                         "LinkNode": {
                             "Type": "WICBuffType",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -1941,7 +2203,7 @@
                         "Hint": "Buff 参数设置",
                         "LinkNode": {
                             "Type": "WICBuffSetting",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     }
                 ],
@@ -2078,7 +2340,7 @@
                         "Hint": "切换的 Buff",
                         "LinkNode": {
                             "Type": "WICBuffType",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2087,7 +2349,7 @@
                         "Hint": "Buff 参数设置",
                         "LinkNode": {
                             "Type": "WICBuffSetting",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     }
                 ],
@@ -2299,7 +2561,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2311,7 +2573,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2323,7 +2585,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2335,7 +2597,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     }
                 ],
@@ -2367,7 +2629,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2379,7 +2641,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2391,7 +2653,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     },
                     {
@@ -2403,7 +2665,7 @@
                         ],
                         "LinkNode": {
                             "Type": "Animations",
-                            "LinkLimit": 1
+                            "Limit": 1
                         }
                     }
                 ],
@@ -2429,7 +2691,7 @@
                         "Hint": "单位",
                         "LinkNode": {
                             "Type": "TechnoTypes",
-                            "LinkLimit": 1,
+                            "Limit": 1,
                             "Color": [
                                 0,
                                 255,
@@ -2538,7 +2800,7 @@
                         "Hint": "接受的 BUFF",
                         "LinkNode": {
                             "Type": "WICBuff",
-                            "LinkLimit": 1,
+                            "Limit": 1,
                             "Color": [
                                 12,
                                 79,

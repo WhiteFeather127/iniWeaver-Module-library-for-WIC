@@ -44,7 +44,7 @@ DelayAnimationBuff,String,-1,动画设置,,,DelayAnimationBuff
 Effect.Timer,String,1,生效时间,"整数 , 生效时间的最大值 , 超过时间限制会立刻进入结束状态"
 Effect.Type,String,-1,Buff 种类,,,Effect.Type
 DamageProcessType,String,-1,伤害处理类型,"对于可以造成伤害的 Buff 效果 , 是否造成真正的攻击伤害 , 不管如何设置都需要指定弹头",,DamageProcessType
-WarheadBuffWarhead,String,-1,弹头设置,,,WarheadBuffWarhead
+WarheadBuffWarheads,String,-1,弹头设置,,,WarheadBuffWarheads
 WarheadBuff,String,-1,,,,WarheadBuff
 WarheadDeathBuff,String,-1,,,,WarheadDeathBuff
 DeathBuff,String,-1,,,,DeathBuff
@@ -58,3 +58,6 @@ HuntBuff,String,-1,,,,HuntBuff
 EXPBuff,String,-1,,,,EXPBuff
 EXPPoolBuff,String,-1,,,,EXPPoolBuff
 AmmoBuff,String,-1,,,,AmmoBuff
+AmmoCheckBuff,String,-1,,,,AmmoCheckBuff
+AmmoCheckBuffAcceptBuffs,String,-1,,,,AmmoCheckBuffAcceptBuffs
+AmmoCheckBuffWarheads,String,-1,,,,AmmoCheckBuffWarheads
