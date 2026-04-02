@@ -1,5 +1,542 @@
 ﻿{
     "InputTypes": {
+        "StateTauntBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "自身动画",
+                            "触发时在自己身上播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": [
+                            "目标动画",
+                            "触发时在受影响单位身上播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 2,
+                        "Hint": [
+                            "生效单位",
+                            "如果设置了则只对这些单位生效"
+                        ],
+                        "LinkNode": {
+                            "Type": "TechnoTypes",
+                            "LinkLimit": -1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "生效次数",
+                            "嘲讽次数 , 次数耗尽会立刻进入结束状态"
+                        ],
+                        "InitialValue": "-1"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 4,
+                        "Hint": [
+                            "生效间隔",
+                            "每隔这么多帧嘲讽一次"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 5,
+                        "Hint": [
+                            "嘲讽范围",
+                            "单位: 格子"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 6,
+                        "Hint": [
+                            "单位作战方条件",
+                            "只有受影响单位的作战方符合要求时才会被嘲讽"
+                        ],
+                        "InitialValue": "All",
+                        "Options": {
+                            "All": "不限作战方",
+                            "S": "己方",
+                            "A": "友方",
+                            "E": "敌方",
+                            "N": "中立"
+                        }
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 7,
+                        "Hint": "移动攻击模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": "向单位集结",
+                            "1": "不移动",
+                            "2": "仅移动不攻击"
+                        }
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 8,
+                        "Hint": "单位筛选模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": "只嘲讽 生效单位 指定的单位",
+                            "1": "只不嘲讽 生效单位 指定的单位"
+                        },
+                        "Constraint": {
+                            "2": "!<EMPTY>"
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5,
+                            6,
+                            7,
+                            8
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Technos"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Counts"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delay"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Range"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 5
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Owner"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 6
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 7
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 8
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "StateSilentBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": [
+                            "动画",
+                            "处于静默状态的单位身上循环播放的动画"
+                        ],
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "动画间隔",
+                            "每次播放动画的延迟时间"
+                        ],
+                        "InitialValue": "31"
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 2,
+                        "Hint": "单位作战方条件",
+                        "InitialValue": "All",
+                        "Options": {
+                            "All": "不限作战方",
+                            "S": "己方",
+                            "A": "友方",
+                            "E": "敌方",
+                            "N": "中立"
+                        },
+                        "SameLine": true
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 3,
+                        "Hint": [
+                            "建筑静默模式",
+                            "来源不符合会暂停动画播放 , 无来源忽略此限制"
+                        ],
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": [
+                                "掉线",
+                                "电力仍然可以正常提供 , 对一些特殊建筑无效"
+                            ],
+                            "1": [
+                                "掉线并断电"
+                            ],
+                            "2": [
+                                "断电",
+                                "对电厂 , 矿厂和一些特殊建筑无效 , 驻军建筑无法断电但是也无法攻击"
+                            ],
+                            "3": [
+                                "单纯无法攻击"
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 4,
+                        "Hint": "单位静默模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": [
+                                "掉线",
+                                "无法控制 , 类似于遥控坦克失去遥控中心的效果 , vxl 单位会变黑"
+                            ],
+                            "1": [
+                                "失控",
+                                "无法移动 , 不响应攻击指令 , 单位仍然可以被选中 , 可以保留移动指令"
+                            ],
+                            "2": [
+                                "无法移动",
+                                "无法移动 , 但是可以攻击 (机场飞机慎用)"
+                            ]
+                        }
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 5,
+                        "Hint": "<载员>静默模式",
+                        "InitialValue": "0",
+                        "Options": {
+                            "0": "<载员>也哑火",
+                            "1": "不影响<载员>"
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4,
+                            5
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.AnimDelays"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Owner"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 4
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 5
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "EraseBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "消失成功动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "血量限制",
+                            "单位血量低于这个值时立刻消失 , 用小数表示百分比"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "DisappearBuff": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "消失成功动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "Link",
+                        "ValueID": 1,
+                        "Hint": "消失失败动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "LinkLimit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "消失的概率",
+                            "用小数表示"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": [
+                            "消失前摇",
+                            "生效后要经过这么长时间才会真正触发消失"
+                        ],
+                        "InitialValue": "0"
+                    },
+                    "数显:",
+                    {
+                        "Type": "Link",
+                        "ValueID": 4,
+                        "Hint": "剩余等待时间",
+                        "LinkNode": {
+                            "Type": "DigitalSetting",
+                            "LinkLimit": 1
+                        }
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Effect.Anims"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Delays"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Digital.Primary"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
         "DeathBuff": {
             "Form": {
                 "Input": [
@@ -84,17 +621,45 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 0
+                                "ValueIDToString": 0
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 1
                             }
                         ]
                     },
                     {
                         "Key": [
-                            "Death.NextBuffSettings"
+                            "Effect.Warheads"
                         ],
                         "Value": [
                             {
-                                "CollectID": 1
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Power.Bases"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            },
+                            ",",
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Effect.Modes"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 5
                             }
                         ]
                     }
@@ -114,17 +679,8 @@
                         "InitialValue": "-1"
                     },
                     {
-                        "Type": "InputInt",
-                        "ValueID": 1,
-                        "Hint": [
-                            "生效时间",
-                            "生效时间的最大值 , 超过时间限制会立刻进入结束状态"
-                        ],
-                        "InitialValue": "0"
-                    },
-                    {
                         "Type": "Bool",
-                        "ValueID": 2,
+                        "ValueID": 1,
                         "Hint": [
                             "随机弹头",
                             "不全部引爆时 , 是否随机选择弹头 , 不随机则从第一个一直爆到最后一个 , 然后再回到第一个"
@@ -136,8 +692,7 @@
                     {
                         "ValueList": [
                             0,
-                            1,
-                            2
+                            1
                         ]
                     }
                 ]
@@ -151,17 +706,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 0
-                            }
-                        ]
-                    },
-                    {
-                        "Key": [
-                            "Effect.Timer"
-                        ],
-                        "Value": [
-                            {
-                                "CollectID": 1
+                                "ValueIDToString": 0
                             }
                         ]
                     },
@@ -171,7 +716,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 2
+                                "ValueIDToString": 1
                             }
                         ]
                     }
@@ -300,7 +845,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 0
+                                "ValueIDToString": 0
                             }
                         ]
                     },
@@ -310,7 +855,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 1
+                                "ValueIDToString": 1
                             }
                         ]
                     },
@@ -320,7 +865,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 2
+                                "ValueIDToString": 2
                             }
                         ]
                     },
@@ -330,7 +875,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 3
+                                "ValueIDToString": 3
                             }
                         ]
                     },
@@ -340,7 +885,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 4
+                                "ValueIDToString": 4
                             }
                         ]
                     },
@@ -350,7 +895,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 5
+                                "ValueIDToString": 5
                             }
                         ]
                     },
@@ -360,7 +905,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 6
+                                "ValueIDToString": 6
                             }
                         ]
                     },
@@ -370,7 +915,7 @@
                         ],
                         "Value": [
                             {
-                                "CollectID": 7
+                                "ValueIDToString": 7
                             }
                         ]
                     }
@@ -1560,6 +2105,24 @@
                 253
             ],
             "Name": "WIC 判断单位条件",
+            "NeedRegisterList": false
+        },
+        "DigitalSetting": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 数显设置",
+            "NeedRegisterList": false
+        },
+        "ButtonSetting": {
+            "FrameColor": [
+                159,
+                252,
+                253
+            ],
+            "Name": "WIC 按钮设置",
             "NeedRegisterList": false
         }
     }

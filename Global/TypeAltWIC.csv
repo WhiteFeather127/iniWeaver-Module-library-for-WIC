@@ -48,3 +48,6 @@ WarheadBuffWarhead,String,-1,弹头设置,,,WarheadBuffWarhead
 WarheadBuff,String,-1,,,,WarheadBuff
 WarheadDeathBuff,String,-1,,,,WarheadDeathBuff
 DeathBuff,String,-1,,,,DeathBuff
+DisappearBuff,String,-1,,,,DisappearBuff
+StateSilentBuff,String,-1,,,,StateSilentBuff
+StateTauntBuff,String,-1,,,,StateTauntBuff
