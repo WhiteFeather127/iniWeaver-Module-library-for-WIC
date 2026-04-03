@@ -82,8 +82,8 @@ EffectRange,String,1,投放范围,3
 TeamScriptDataScript,String,-1,单位执行的脚本或任务(可选),,,TeamScriptDataScript
 Team,TeamTypes,1,作战小队
 ScriptDataMission,String,-1,,,,ScriptDataMission
-TeamAnimData1,String,-1,在投放位置播放的动画,,,TeamAnimData1
-TeamAnimData2,String,-1,在单位上播放的动画,,,TeamAnimData2
-TeamTechnoDataTechno2,String,-1,目标点单位筛选,"根据指定的单位类型选择 1 个单位作为投放的目标点 , 找不到单位就不投放",,TeamTechnoDataTechno2
+TeamAnimData1,String,-1,在投放位置播放的动画(可选),,,TeamAnimData1
+TeamAnimData2,String,-1,在单位上播放的动画(可选),,,TeamAnimData2
+TeamTechnoDataTechno2,String,-1,目标点单位筛选(可选),"根据指定的单位类型选择 1 个单位作为投放的目标点 , 找不到单位就不投放",,TeamTechnoDataTechno2
 TeamTechnoDataTarget,String,-1,,,,TeamTechnoDataTarget
-OffsetData,String,-1,对目标点进行偏移,,,OffsetData
+OffsetData,String,-1,对目标点进行偏移(可选),,,OffsetData
