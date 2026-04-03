@@ -1,6 +1,501 @@
 ﻿{
     "InputTypes": {
-        "TeamTechnoDataTechno": {
+        "OffsetData": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Bool",
+                        "ValueID": 0,
+                        "Hint": "随机",
+                        "InitialValue": "no"
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": "偏移距离",
+                        "InitialValue": "0",
+                        "Constraint": {
+                            "0": "no"
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": "偏移最大值",
+                        "InitialValue": "100",
+                        "Constraint": {
+                            "0": "yes"
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 3,
+                        "Hint": "偏移最小值",
+                        "InitialValue": "-100",
+                        "Constraint": {
+                            "0": "yes"
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 4,
+                        "Hint": [
+                            "旋转角度",
+                            "0 = 正东 (地图右下方向)"
+                        ],
+                        "InitialValue": "0"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueList": [
+                            0,
+                            1,
+                            2,
+                            3,
+                            4
+                        ]
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Random"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Range"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Max"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 2
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Min"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 3
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Angle"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 4
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamTechnoDataTarget": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 0,
+                        "Hint": "距离类型",
+                        "InitialValue": "First",
+                        "Options": {
+                            "First": [
+                                "第一个被检测到的单位",
+                                "这是性能较高的方案 , 一般用于检测单位是否存在"
+                            ],
+                            "Closer": "较近的",
+                            "Farther": "较远的",
+                            "Random": "随机的"
+                        }
+                    },
+                    {
+                        "Type": "MultipleChoice",
+                        "ValueID": 1,
+                        "Hint": "作战方所属",
+                        "InitialValue": "All",
+                        "Options": {
+                            "All": "不限作战方",
+                            "S": "己方",
+                            "A": "友方",
+                            "E": "敌方",
+                            "N": "中立"
+                        },
+                        "SameLine": true
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Distance"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Owner"
+                        ],
+                        "Value": [
+                            {
+                                "ValueIDToString": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamTechnoDataTechno2": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "单位",
+                        "LinkNode": {
+                            "Type": "TechnoTypes",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "权重",
+                            "每个单位的权重"
+                        ],
+                        "InitialValue": "1"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Technos"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Weights"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamAnimData2": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "权重",
+                            "每个动画的权重"
+                        ],
+                        "InitialValue": "1"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Anims"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Weights"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamAnimData1": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "动画",
+                        "LinkNode": {
+                            "Type": "Animations",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 1,
+                        "Hint": [
+                            "权重",
+                            "每个动画的权重"
+                        ],
+                        "InitialValue": "1"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Anims"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Weights"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "ScriptDataMission": {
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Bool",
+                        "ValueID": 0,
+                        "Hint": [
+                            "启用任务列表",
+                            "分配任务而非 AI 脚本"
+                        ],
+                        "InitialValue": "no"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    }
+                ]
+            },
+            "ExportMode": "Default"
+        },
+        "TeamScriptDataScript": {
+            "Multiple": true,
+            "Form": {
+                "Input": [
+                    {
+                        "Type": "Link",
+                        "ValueID": 0,
+                        "Hint": "脚本",
+                        "LinkNode": {
+                            "Type": "ScriptTypes",
+                            "Limit": 1
+                        }
+                    },
+                    {
+                        "Type": "EnumCombo",
+                        "ValueID": 1,
+                        "Hint": "任务",
+                        "InitialValue": "Guard",
+                        "Options": {
+                            "Sleep": "休眠",
+                            "Attack": "根据威胁等级进行TeamType中的攻击任务",
+                            "Move": "移动",
+                            "QMove": "在其他部队移动结束后移动到目的地(遭遇战无效)",
+                            "Retreat": "撤退(可能会逃出地图)",
+                            "Guard": "防御，只攻击进入射程内的敌人",
+                            "Sticky": "与防御类似，会与敌人交战但不会移动和追击(默认无法重组，但是可以改)",
+                            "Enter": "进入建筑或运输工具，AI会自动找寻附近的建筑物进驻",
+                            "Capture": "用于MultiEngineer模式的工程师抢建筑",
+                            "Eaten": "修理时卖掉(疑似Ra95残留)",
+                            "Harvest": "采矿",
+                            "Area Guard": "区域防御，会主动迎击附近的敌人",
+                            "Return": "子机回归",
+                            "Stop": "停止当前动作",
+                            "Ambush": "无效",
+                            "Hunt": "猎杀",
+                            "Unload": "运输单位卸货",
+                            "Sabotage": "放置C4或炸药",
+                            "Construction": "在建筑建立的位置造建筑(车辆部署建筑同样有效)",
+                            "Selling": "变卖建筑",
+                            "Repair": "修理",
+                            "Rescue": "救援(意味不明)",
+                            "Missile": "种蘑菇",
+                            "Harmless": "进入人畜无害状态",
+                            "Open": "开门开门开门呐！",
+                            "Patrol": "巡逻(遭遇战无效)",
+                            "Paradrop Approach": "空投靠近",
+                            "Paradrop Overfly": "空投",
+                            "Wait": "等待",
+                            "ChronoMove": "(特殊)Chrono类单位移动到目的地",
+                            "AreaFire": "(特殊)使用AreaFire武器开火",
+                            "Spyplane Approach": "侦察机靠近",
+                            "Spyplane Overfly": "侦察机侦查"
+                        }
+                    },
+                    {
+                        "Type": "InputInt",
+                        "ValueID": 2,
+                        "Hint": [
+                            "权重",
+                            "每个脚本的权重"
+                        ],
+                        "InitialValue": "1"
+                    }
+                ],
+                "Format": [
+                    {
+                        "ValueIDToString": 0
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 1
+                    },
+                    ",",
+                    {
+                        "ValueIDToString": 2
+                    }
+                ]
+            },
+            "ExportMode": {
+                "Type": "Recompose",
+                "ExportLines": [
+                    {
+                        "Key": [
+                            "Scripts"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 0
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Missions"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    },
+                    {
+                        "Key": [
+                            "Weights"
+                        ],
+                        "Value": [
+                            {
+                                "CollectID": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "TeamTechnoDataTechno1": {
             "Multiple": true,
             "Form": {
                 "Input": [
